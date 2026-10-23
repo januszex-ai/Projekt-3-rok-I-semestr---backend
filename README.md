@@ -37,6 +37,12 @@ Aplikacja webowa umożliwiająca mieszkańcom zgłaszanie problemów z infrastru
 | Pracownik urzędu | zmiana statusów, komentarze, zdjęcia po naprawie |
 | Administrator | wszystko powyżej oraz zarządzanie użytkownikami, kategoriami, logami i mapą koncentracji zgłoszeń |
 
+##Współpraca
+
+Zasady pracy z repozytorium (proces pull requestów, nazewnictwo gałęzi, konwencja commitów, przegląd kodu) są wspólne dla wszystkich repozytoriów projektu i opisane w dokumencie [CONTRIBUTING.md](https://github.com/januszex-ai/.github/blob/main/CONTRIBUTING.md).
+
+Zadania i postęp sprintów śledzimy na [tablicy projektu](https://github.com/orgs/januszex-ai/projects/1).
+
 Stack Technologiczny:
 
 Link do Figma:
