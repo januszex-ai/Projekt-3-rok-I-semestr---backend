@@ -37,6 +37,47 @@ Aplikacja webowa umożliwiająca mieszkańcom zgłaszanie problemów z infrastru
 | Pracownik urzędu | zmiana statusów, komentarze, zdjęcia po naprawie |
 | Administrator | wszystko powyżej oraz zarządzanie użytkownikami, kategoriami, logami i mapą koncentracji zgłoszeń |
 
+# Backend
+
+REST API projektu zbudowane w Laravel, uruchamiane w kontenerach Docker (PHP-FPM, Nginx, MySQL).
+
+## Wymagania
+- Git
+- Docker z Docker Compose
+- Windows: WSL 2, repozytorium sklonowane do systemu plików WSL
+
+## Pierwsze uruchomienie
+```bash
+git clone git@github.com:januszex-ai/Projekt-3-rok-I-semestr---backend.git backend
+cd backend
+cp .env.example .env          # ustaw UID i GID na wyniki: id -u / id -g
+docker compose up -d --build
+docker compose exec app composer install
+docker compose exec app php artisan key:generate
+docker compose exec app php artisan migrate
+```
+Aplikacja: http://localhost:8000 · Health check: http://localhost:8000/api/health
+
+## Zmienne środowiskowe
+| Zmienna | Opis | Domyślnie |
+|---|---|---|
+| `APP_URL` | adres backendu | `http://localhost:8000` |
+| `FRONTEND_URL` | adres frontendu dopuszczony przez CORS | `http://localhost:5173` |
+| `APP_PORT` | port aplikacji na hoście | `8000` |
+| `FORWARD_DB_PORT` | port MySQL na hoście | `3306` |
+| `UID` / `GID` | identyfikatory użytkownika hosta (uprawnienia plików) | `1000` |
+| `DB_*` | dane dostępowe bazy MySQL w kontenerze | patrz `.env.example` |
+
+## Przydatne polecenia
+| Polecenie | Opis |
+|---|---|
+| `docker compose up -d` | start środowiska |
+| `docker compose down` | zatrzymanie środowiska |
+| `docker compose exec app php artisan <polecenie>` | Artisan |
+| `docker compose exec app composer <polecenie>` | Composer |
+| `docker compose logs -f app` | logi aplikacji |
+| `docker compose down -v` | zatrzymanie i **usunięcie danych bazy** |
+
 ##Współpraca
 
 Zasady pracy z repozytorium (proces pull requestów, nazewnictwo gałęzi, konwencja commitów, przegląd kodu) są wspólne dla wszystkich repozytoriów projektu i opisane w dokumencie [CONTRIBUTING.md](https://github.com/januszex-ai/.github/blob/main/CONTRIBUTING.md).
