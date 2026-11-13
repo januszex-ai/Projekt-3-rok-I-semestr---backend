@@ -6,14 +6,14 @@ use Tests\TestCase;
 
 class HealthCheckTest extends TestCase
 {
-    public function testHealthCheck(): void
+    public function test_health_check(): void
     {
         $this->getJson('api/health')
             ->assertOk()
             ->assertExactJson(['status' => 'ok']);
     }
 
-    public function testCorsCheck(): void
+    public function test_cors_check(): void
     {
         $origin = config('cors.allowed_origins')[0];
 
