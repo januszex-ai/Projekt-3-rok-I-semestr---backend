@@ -1,0 +1,11 @@
+name: PR title
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+jobs:
+  pr-title:
+    uses: januszex-ai/.github/.github/workflows/pr-title.yml@main
+    with:
+      prefix: B
