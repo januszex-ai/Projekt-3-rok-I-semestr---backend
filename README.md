@@ -78,6 +78,22 @@ Aplikacja: http://localhost:8000 · Health check: http://localhost:8000/api/heal
 | `docker compose logs -f app` | logi aplikacji |
 | `docker compose down -v` | zatrzymanie i **usunięcie danych bazy** |
 
+## Jakość kodu
+Przed wysłaniem zmian uruchom wszystkie sprawdzenia (te same co w CI):
+
+```bash
+docker compose exec app composer ci
+```
+
+| Polecenie | Opis |
+|---|---|
+| `composer lint` | sprawdzenie stylu kodu (Pint) |
+| `composer lint:fix` | automatyczna poprawa stylu |
+| `composer analyse` | analiza statyczna (Larastan) |
+| `composer test` | testy (MySQL, baza `backend_testing`) |
+
+Testy korzystają z osobnej bazy `backend_testing`, tworzonej automatycznie przy pierwszym starcie kontenera MySQL.
+
 ##Współpraca
 
 Zasady pracy z repozytorium (proces pull requestów, nazewnictwo gałęzi, konwencja commitów, przegląd kodu) są wspólne dla wszystkich repozytoriów projektu i opisane w dokumencie [CONTRIBUTING.md](https://github.com/januszex-ai/.github/blob/main/CONTRIBUTING.md).
