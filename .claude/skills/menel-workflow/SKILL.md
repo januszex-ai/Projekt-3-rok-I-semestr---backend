@@ -1,6 +1,6 @@
 ---
 name: menel-workflow
-description: Realizacja issues projektu MENEL (org januszex-ai) zgodnie z CONTRIBUTING – issue → branch → implementacja z testami → PR z szablonem → review. Używaj, gdy użytkownik każe wziąć/zrobić issue, zadanie ze sprintu lub tablicy, albo wywoła /menel-workflow <numer|next|all>.
+description: Realizacja issues projektu MENEL (org januszex-ai) zgodnie z CONTRIBUTING – issue → branch → implementacja z testami → PR z szablonem → review. Używaj, gdy użytkownik każe wziąć/zrobić issue, zadanie ze sprintu lub tablicy, albo wywoła /menel-workflow z numerem issue, next albo all.
 argument-hint: "<numer-issue> | next | all"
 ---
 
@@ -64,7 +64,8 @@ gh issue edit N --add-assignee @me
 git switch main && git pull --ff-only
 git switch -c <P><NNN>/<typ>/<opis-kebab-case>
 ```
-- `P` = prefiks repo: `B` backend, `F` frontend, `D` docs; `NNN` = numer issue dopełniony do 3 cyfr. Przykład z CONTRIBUTING: `B012/feature/user-registration`.
+- `<P><NNN>` = ID z tytułu issue (`B004 | Preparing ...` → `B004`), a **nie** numer `#` z GitHuba. `P`: `B` backend, `F` frontend, `D` docs. Przykład: `B012/feature/user-registration`. Issue bez ID w tytule → zapytaj użytkownika, nie wymyślaj ID.
+- W PR nadal `Closes #<numer GitHuba>`.
 - `typ`: `feature` (nowa funkcjonalność), `fix` (bug), `chore` (konfiguracja, zależności, CI, Docker), `docs` (dokumentacja).
 - Opis: 2–5 słów po angielsku, małe litery, myślniki.
 
@@ -83,9 +84,9 @@ Typy: `feat`, `fix`, `docs`, `chore`, `test`, `refactor`, `ci`, `style`. Dodawaj
 git push -u origin HEAD
 ```
 
-**8. Pull request** – tytuł = Conventional Commit, treść = wypełniony szablon organizacji. Zapisz treść do pliku tymczasowego i użyj `--body-file`:
+**8. Pull request** – tytuł = `<ID> - <typ>: <opis>` (np. `B012 - feat: add report endpoint`; po squashu to jest commit na `main`), treść = wypełniony szablon organizacji. Zapisz treść do pliku tymczasowego i użyj `--body-file`:
 ```bash
-gh pr create --base main --title "feat: ..." --body-file /tmp/pr-N.md
+gh pr create --base main --title "B012 - feat: ..." --body-file /tmp/pr-N.md
 ```
 Szablon (zaznaczaj `[x]` tylko to, co faktycznie sprawdziłeś):
 ```markdown
@@ -124,6 +125,8 @@ gh pr merge --squash --delete-branch
 Issue zamyka się samo przez `Closes #N` – nie zamykaj issues ręcznie.
 
 **11.** `git switch main` i (w trybie `all`) następne issue.
+
+**Nazewnictwo issues:** tytuł `<P><NNN> | <Description in English>` (np. `B004 | Preparing and Securing an Azure Virtual Machine`), label + typ issue (Task/Bug). Nowych issues nie zakładaj bez zgody użytkownika; jeśli zgoda jest – kolejny wolny numer ID sprawdź przez `gh issue list --state all`.
 
 **Język:** wszystko, co trafia na GitHuba (commity, tytuły i opisy PR, issues, komentarze na issues i PR) oraz komentarze w kodzie – po angielsku. Po polsku tylko raport dla użytkownika i teksty UI aplikacji.
 
@@ -173,10 +176,9 @@ Autor PR nie może zatwierdzić własnych zmian; review w ciągu 24 h.
 
 | Obszar zmian | Reviewer | GitHub login |
 |---|---|---|
-| Backend / DevOps | Pawel D. | `ziutek22` |
-| Backend / DevOps/ Tester | Grzegorz S. | `SlomkaGrzegorz` |
-| Frontend / PM / Tester | Kacper B. | `kacperhaha` |
-| PM/ Tester | Tobiasz J. | `b0binho` |
+| Backend / DevOps | Grzegorz S. | `TODO` |
+| Frontend / UI | Kacper B. | `TODO` |
+| Testy / QA / docs | Tobiasz J. | `TODO` |
 
 Jeśli login to `TODO` – nie zgaduj, pomiń `--add-reviewer` i napisz o tym w raporcie.
 

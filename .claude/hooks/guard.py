@@ -13,7 +13,7 @@ import sys
 
 PROTECTED = {"main", "master"}
 BRANCH_RE = re.compile(r"^[A-Za-z]?\d+/(feature|fix|chore|docs)/[a-z0-9]+(-[a-z0-9]+)*$")
-COMMIT_RE = re.compile(r"^(feat|fix|docs|chore|test|refactor|ci|style)(\([a-z0-9-]+\))?!?: \S.*")
+COMMIT_RE = re.compile(r"^([A-Z]\d{3} - )?(feat|fix|docs|chore|test|refactor|ci|style)(\([a-z0-9-]+\))?!?: \S.*")
 SECRET_FILE_RE = re.compile(r"(^|/)\.env(\.(?!example$)[^/]+)?$")
 SEPARATORS = {"&&", "||", ";", "|", "&", ";;", "(", ")"}
 
@@ -137,8 +137,8 @@ def check_gh(args, cwd):
 
     if area == "pr" and action == "create":
         title = opt_value(rest, "-t", "--title")
-        if not title or not COMMIT_RE.match(title):
-            block("tytuł PR musi być Conventional Commit, np. --title \"feat: add report endpoint\".")
+        if not title or not re.match(r"^[A-Z]\d{3} - ", title) or not COMMIT_RE.match(title):
+            block("tytuł PR: \"<ID> - <typ>: <opis>\", np. --title \"B012 - feat: add report endpoint\".")
         body = opt_value(rest, "-b", "--body")
         body_file = opt_value(rest, "-F", "--body-file")
         if body_file:
